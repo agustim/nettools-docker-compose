@@ -9,6 +9,33 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "8100:80/tcp"
+      - "8143:443/tcp"
+    environment:
+      TZ: 'Europe/Madrid'
+      VIRTUAL_HOST: pi.hole
+    volumes:
+       - './etc-pihole/:/etc/pihole/'
+       - './etc-dnsmasq.d/:/etc/dnsmasq.d/'
+    # run `touch ./var-log/pihole.log` first unless you like errors
+    # - './var-log/pihole.log:/var/log/pihole.log'
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+    # Recommended but not required (DHCP needs NET_ADMIN)
+    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+    depends_on: 
+      - nginx-proxy
+
 networks:
   default:
     external:
