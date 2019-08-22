@@ -3,7 +3,7 @@
 ## Web Proxy
 Creem un container amb una xarxa externa de docker, que faci de proxy de les diferents eines que creem.
 
-Una vegada creada s'ha de declarar a docker:
+Una vegada creada s'ha de declarar a docker el network:
 
 ``` bash
 docker network create webproxy

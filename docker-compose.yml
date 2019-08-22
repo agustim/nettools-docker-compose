@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   nginx-proxy:
@@ -15,8 +15,6 @@ services:
     ports:
       - "53:53/tcp"
       - "53:53/udp"
-      - "8100:80/tcp"
-      - "8143:443/tcp"
     environment:
       TZ: 'Europe/Madrid'
       VIRTUAL_HOST: pi.hole
